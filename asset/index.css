@@ -1,0 +1,140 @@
+body{
+    background-color: #3e3b39;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-image: url('https://icweiliimg1.pstatp.com/weili/bl/478321557151416516.jpg');
+}
+[v-cloak] {
+    display: none;
+}
+
+#banner{
+    display: flex;
+    /* background-image: url('https://icweiliimg1.pstatp.com/weili/bl/478321557151416516.jpg'); */
+    width: 100vw;
+    height: 18vh;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    padding-bottom: 2vh;
+}
+#banner>a:nth-of-type(1){
+    height: 100%;
+    color: #f2f2f3;
+    font-size: 1.6rem;
+    text-decoration: none;
+    padding-top: 1vh;
+}
+
+#banner>div:nth-of-type(1)>a{
+    height: 20vh;
+    width: 20vw;
+    border-radius: 10px;
+    background-color: #fff;
+    color:black;
+    font-size: 1.3rem;
+    /* 撑开盒子模型，让按钮样式更加美观 */
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 8vw;
+    padding-right: 8vw;
+    /* 使按钮水平居中 */
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    /* 取消下划线 */
+    text-decoration: none;
+}
+
+#banner .bannerAActive{
+    background-color:#e25226 !important;
+    color:#fff !important;
+}
+
+.tabs{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+.tabs-bar {
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+}
+.tabs-tab {
+    flex: 0.7;
+    font-size: 1.5rem;
+    color: #4b4949;
+    border-style: solid;
+    background-color: #fff;
+    border-radius: 1rem;
+    /* 调整字体内容垂直水平居中 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.tabs-tab-active{
+    /* 为被选中的标签添加一个选中特效 */
+    color: #fff;
+    background-color: #e25226;
+}
+.tabs-content{
+    width: 100vw;
+    background-color: #181818;
+    color: #aa99e6;
+    /* color: #fff; */
+    display: flex;
+}
+table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow: auto;
+}
+.pane>table>thead{
+    height: 10vh;
+}
+.pane>table>thead>tr{
+    height: 10vh;
+    background-color: #131b31;
+    font-size: 20px;
+    display: flex;
+}
+thead>tr>:nth-child(1){
+    flex: 0.6;
+    align-items: center;
+    justify-items: center;
+    padding-top: 3vh;
+}
+thead>tr>:nth-child(2){
+    flex: 1.4;
+    align-items: center;
+    justify-items: center;
+    padding-top: 3vh;
+}
+tbody{
+    background-color: #131b31;
+    font-size: 1.3rem;
+}
+tbody tr {
+    width: 100vw;
+    display: flex;
+}
+tbody>tr>:first-child {
+    width: 30vw;
+    text-align: center;
+    padding-top: 2vh;
+    padding-left: 5vw;
+}
+tbody>tr>:nth-child(2) {
+    width: 70vw;
+    text-align: center;
+    padding-top: 2vh;
+}
+#footbar{
+    /* background-image: url('https://icweiliimg1.pstatp.com/weili/bl/478321557151416516.jpg'); */
+    width: 100vw;
+    height: 10vh;
+    text-align: center;
+    color: #fff;
+    padding-top: 2vh;
+}

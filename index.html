@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="asset/index.css">
+    <link rel="stylesheet" href="asset/normalize.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
+    <title>铸剑楼空闲教室查询V1.6</title>
+</head>
+
+<!-- content-div的Vue动画 -->
+<style>
+    .v-enter,
+    .v-leave-to{
+        opacity: 0.2;
+        transform: translateX(-20px);
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+        transition: all 0.5s ease;
+    }
+</style>
+<body>
+    <div id="app" v-cloak>
+
+        <div id="banner">
+            <a href="/index.html">&nbsp&nbsp&nbsp&nbsp公大团区<br>空闲教室查询</a>
+            <div v-model="buttonActiveKey">
+                <a href="javascript:void(0);" :class="buttonCls(getButton()[0])" @click="changeData(1);changeButtonActiveKey('1')" name="1">铸剑</a>
+                <a href="javascript:void(0);" :class="buttonCls(getButton()[1])" @click="changeData(2);changeButtonActiveKey('2')" name="2">中楼</a>
+                <a href="javascript:void(0);" :class="buttonCls(getButton()[2])" @click="changeData(3);changeButtonActiveKey('3')" name="3">西配</a>                
+            </div>
+            
+        </div>
+
+        <div>
+            <tabs v-model="activeKey">
+                <pane label="周一" name="1">
+                    <content-div>
+                        <span slot="slot-1">{{ computedRes(1,1) }}</span>
+                        <span slot="slot-2">{{ computedRes(1,2) }}</span>
+                        <span slot="slot-am-all">{{ computedAll(1,'am') }}</span>
+                        <span slot="slot-3">{{ computedRes(1,3) }}</span>
+                        <span slot="slot-4">{{ computedRes(1,4) }}</span>
+                        <span slot="slot-pm-all">{{ computedAll(1,'pm') }}</span>
+                        <br style="clear:both;" />
+                    </content-div>
+                </pane>
+            
+                <pane label="周二" name="2">
+                    <content-div>
+                        <span slot="slot-1">{{ computedRes(2,1) }}</span>
+                        <span slot="slot-2">{{ computedRes(2,2) }}</span>
+                        <span slot="slot-am-all">{{ computedAll(2,'am') }}</span>
+                        <span slot="slot-3">{{ computedRes(2,3) }}</span>
+                        <span slot="slot-4">{{ computedRes(2,4) }}</span>
+                        <span slot="slot-pm-all">{{ computedAll(2,'pm') }}</span>
+                        <br style="clear:both;" />
+                    </content-div>
+                </pane>
+                <pane label="周三" name="3">
+                    <content-div>
+                        <span slot="slot-1">{{ computedRes(3,1) }}</span>
+                        <span slot="slot-2">{{ computedRes(3,2) }}</span>
+                        <span slot="slot-am-all">{{ computedAll(3,'am') }}</span>
+                        <span slot="slot-3">{{ computedRes(3,3) }}</span>
+                        <span slot="slot-4">{{ computedRes(3,4) }}</span>
+                        <span slot="slot-pm-all">{{ computedAll(3,'pm') }}</span>
+                        <br style="clear:both;" />
+                    </content-div>
+                </pane>
+                <pane label="周四" name="4">
+                    <content-div>
+                        <span slot="slot-1">{{ computedRes(4,1) }}</span>
+                        <span slot="slot-2">{{ computedRes(4,2) }}</span>
+                        <span slot="slot-am-all">{{ computedAll(4,'am') }}</span>
+                        <span slot="slot-3">{{ computedRes(4,3) }}</span>
+                        <span slot="slot-4">{{ computedRes(4,4) }}</span>
+                        <span slot="slot-pm-all">{{ computedAll(4,'pm') }}</span>
+                        <br style="clear:both;" />
+                    </content-div>
+                </pane>
+                <pane label="周五" name="5">
+                    <content-div>
+                        <span slot="slot-1">{{ computedRes(5,1) }}</span>
+                        <span slot="slot-2">{{ computedRes(5,2) }}</span>
+                        <span slot="slot-am-all">{{ computedAll(5,'am') }}</span>
+                        <span slot="slot-3">{{ computedRes(5,3) }}</span>
+                        <span slot="slot-4">{{ computedRes(5,4) }}</span>
+                        <span slot="slot-pm-all">{{ computedAll(5,'pm') }}</span>
+                        <br style="clear:both;" />
+                    </content-div>
+                </pane>
+            </tabs>
+
+        </div>
+
+        <div id="footbar">
+            项目作者：17网二陈川 <br>
+            联系方式：ayaseemt@qq.com<br>
+            <a href="https://github.com/cicidoll/ppsuc-classroom/" style="color: #fff;">Github项目地址：Python+Vue实现铸剑楼空闲教室查询</a>
+        </div>
+    </div>
+</body>
+<script src="asset/tab.js"></script>
+<script src="asset/pane.js"></script>
+<script src="asset/index.js"></script>
+</html>
