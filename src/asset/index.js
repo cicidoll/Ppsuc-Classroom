@@ -3,6 +3,9 @@ import './tab.js';
 import './index.less';
 import './normalize.css';
 
+//全部js兼容性处理。（缺点：占用体积过大）
+//import '@babel/polyfill';
+
 var content = {
     template:'<table> \
     <thead> \
