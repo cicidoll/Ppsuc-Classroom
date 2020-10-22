@@ -1,0 +1,39 @@
+{
+  "name": "ppsucclassroom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^5.0.0",
+    "html-webpack-plugin": "^4.5.0",
+    "less": "^3.12.2",
+    "less-loader": "^7.0.2",
+    "mini-css-extract-plugin": "^1.1.1",
+    "postcss-loader": "^4.0.4",
+    "postcss-preset-env": "^6.7.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {},
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
+  }
+}

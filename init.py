@@ -19,7 +19,7 @@ classRoomNumZhuJian = ['101','102','104','105','106','108','110','111','112',
 classRoomNumZhong = ['103','104','107','110','112','113',
             '203','204','205','206','207','208','210','211',
             '303','304','305','306','307','308',
-            '403','404','405','406','407','408',
+            '407','408',
             '503','504','505','506','507','510',
             '603','607',
             '703','704','705','707','708']#中楼教室
@@ -31,14 +31,14 @@ classRoomNumXi = ['102','103','104','105','106','109',
             '502','503','504','505','506','509',]#西配楼教室
 
 #需要查询的教室
-roomNumSelect = classRoomNumXi
+roomNumSelect = classRoomNumZhong
 
 urlPool = list() #url池, 存放需要遍历的url
 def creatUrlPool():
     for roomNum in roomNumSelect:
         # urlPool.append("{}?{}&jxcdmc=%27%CD%C5%D6%FD%BD%A3%C2%A5{}%27".format(baseUrl,parse.urlencode(urlDic),roomNum))#铸剑楼拼接字符串
-        # urlPool.append("{}?{}&jxcdmc=%27%CD%C5%D3%FD%BE%AF%D6%D0%C2%A5{}%27".format(baseUrl,parse.urlencode(urlDic),roomNum))#中楼拼接字符串
-         urlPool.append("{}?{}&jxcdmc=%27%CD%C5%D3%FD%BE%AF%CE%F7%C2%A5{}%27".format(baseUrl,parse.urlencode(urlDic),roomNum))#西配楼拼接字符串
+         urlPool.append("{}?{}&jxcdmc=%27%CD%C5%D3%FD%BE%AF%D6%D0%C2%A5{}%27".format(baseUrl,parse.urlencode(urlDic),roomNum))#中楼拼接字符串
+        # urlPool.append("{}?{}&jxcdmc=%27%CD%C5%D3%FD%BE%AF%CE%F7%C2%A5{}%27".format(baseUrl,parse.urlencode(urlDic),roomNum))#西配楼拼接字符串
 
 pathPool = [#上午1、2节
     "//table[@class='table table-bordered table-striped table-condensed']//tr[1]//td[2]/text()",

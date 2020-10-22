@@ -9,7 +9,6 @@ body{
 
 #banner{
     display: flex;
-    /* background-image: url('https://icweiliimg1.pstatp.com/weili/bl/478321557151416516.jpg'); */
     width: 100vw;
     height: 18vh;
     flex-direction: column;
@@ -18,7 +17,7 @@ body{
     padding-bottom: 2vh;
 }
 #banner>a:nth-of-type(1){
-    height: 100vh;
+    height: 100%;
     color: #f2f2f3;
     font-size: 1.6rem;
     text-decoration: none;
@@ -94,7 +93,7 @@ table{
     height: 10vh;
 }
 .pane>table>thead>tr{
-    height: 10%;
+    height: 10vh;
     background-color: #131b31;
     font-size: 20px;
     display: flex;
