@@ -1,6 +1,7 @@
 from lxml import etree
 from urllib import parse
 import requests
+import json
 
 baseUrl = 'http://121.194.213.115/swyt/jxcdkbcx.php' #基于校园内网地址进行爬取
 ua = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36'
@@ -30,16 +31,6 @@ classRoomNumXi = ['102','103','104','105','106','109',
             '402','403','404','405','406','409',
             '502','503','504','505','506','509',]#西配楼教室
 
-#需要查询的教室
-roomNumSelect = classRoomNumZhong
-
-urlPool = list() #url池, 存放需要遍历的url
-def creatUrlPool():
-    for roomNum in roomNumSelect:
-        # urlPool.append("{}?{}&jxcdmc=%27%CD%C5%D6%FD%BD%A3%C2%A5{}%27".format(baseUrl,parse.urlencode(urlDic),roomNum))#铸剑楼拼接字符串
-         urlPool.append("{}?{}&jxcdmc=%27%CD%C5%D3%FD%BE%AF%D6%D0%C2%A5{}%27".format(baseUrl,parse.urlencode(urlDic),roomNum))#中楼拼接字符串
-        # urlPool.append("{}?{}&jxcdmc=%27%CD%C5%D3%FD%BE%AF%CE%F7%C2%A5{}%27".format(baseUrl,parse.urlencode(urlDic),roomNum))#西配楼拼接字符串
-
 pathPool = [#上午1、2节
     "//table[@class='table table-bordered table-striped table-condensed']//tr[1]//td[2]/text()",
     "//table[@class='table table-bordered table-striped table-condensed']//tr[1]//td[3]/text()",
@@ -66,52 +57,94 @@ pathPool = [#上午1、2节
     "/html[1]/body[1]/div[3]/div[1]/div[1]/div[3]/div[1]/div[2]/table[1]/tbody[1]/tr[4]/td[6]/text()",
 ]
 
-def saveResult(flag,classRoomIndex,count):
-    #append(0)为占位符
-    if count<=5:
-        if flag==0:am12.append(int(roomNumSelect[classRoomIndex]))
-        else:am12.append(0)
-    elif 5<count<=10:
-        if flag==0:am34.append(int(roomNumSelect[classRoomIndex]))
-        else:am34.append(0)
-    elif 10<count<=15:
-        if flag==0:pm12.append(int(roomNumSelect[classRoomIndex]))
-        else:pm12.append(0)
-    elif 15<count<=20:
-        if flag==0:pm34.append(int(roomNumSelect[classRoomIndex]))
-        else:pm34.append(0)
+am12, am34, pm12, pm34 = list(), list(), list(), list()
 
+# 定义一个变量
+jsontext = {'data':[]}
 
-
-def getResponse():
-    for classRoomIndex,url in enumerate(urlPool):
-        with requests.get(url,headers={'User-agent':ua}) as response:
-            content = response.text #HTML内容
-            html = etree.HTML(content)
-
-            count = 0
-            for path in pathPool:
-                pathTemp = html.xpath(path)
-                count+=1
-                pathFlag = 1#默认置1
-
-                if len(pathTemp)==0:pathFlag=0
-                saveResult(pathFlag,classRoomIndex,count)
-
-
-
-        
 #主线程
-creatUrlPool()
-am12,am34,pm12,pm34 = list(),list(),list(),list()
-getResponse()
+def init():
 
-print('am12={}'.format(am12))
-print('am34={}'.format(am34))
-print('pm12={}'.format(pm12))
-print('pm34={}'.format(pm34))
+    def creatUrlPool(roomNumSelect):
+        urlPool = list() #url池, 存放需要遍历的url        
+        if roomNumSelect is classRoomNumZhuJian:
+            for roomNum in roomNumSelect:
+                urlPool.append("{}?{}&jxcdmc=%27%CD%C5%D6%FD%BD%A3%C2%A5{}%27".format(baseUrl,parse.urlencode(urlDic),roomNum))#铸剑楼拼接字符串
+        elif roomNumSelect is classRoomNumZhong:
+            for roomNum in roomNumSelect:
+                urlPool.append("{}?{}&jxcdmc=%27%CD%C5%D3%FD%BE%AF%D6%D0%C2%A5{}%27".format(baseUrl,parse.urlencode(urlDic),roomNum))#中楼拼接字符串
+        elif roomNumSelect is classRoomNumXi:
+            for roomNum in roomNumSelect:
+                urlPool.append("{}?{}&jxcdmc=%27%CD%C5%D3%FD%BE%AF%CE%F7%C2%A5{}%27".format(baseUrl,parse.urlencode(urlDic),roomNum))#西配楼拼接字符串
+        return urlPool
+
+    def saveResult(flag, classRoomIndex, count, roomNumSelect):
+        global am12, am34, am34, pm34
+        #append(0)为占位符,表示有课
+        if count<=5:
+            if flag==0:
+                am12.append(int(roomNumSelect[classRoomIndex]))
+            else:
+                am12.append(0)
+        elif 5<count<=10:
+            if flag==0:
+                am34.append(int(roomNumSelect[classRoomIndex]))
+            else:
+                am34.append(0)
+        elif 10<count<=15:
+            if flag==0:
+                pm12.append(int(roomNumSelect[classRoomIndex]))
+            else:
+                pm12.append(0)
+        elif 15<count<=20:
+            if flag==0:
+                pm34.append(int(roomNumSelect[classRoomIndex]))
+            else:
+                pm34.append(0)
+
+    def getResponse(roomNumSelect):
+        global am12, am34, am34, pm34
+        urlPool = creatUrlPool(roomNumSelect)
+
+        for classRoomIndex,url in enumerate(urlPool):
+            with requests.get(url,headers={'User-agent':ua}) as response:
+                content = response.text #HTML内容
+                html = etree.HTML(content)
+
+                count = 0
+                for path in pathPool:
+                    pathTemp = html.xpath(path)
+                    count+=1
+                    pathFlag = 1#默认置1
+
+                    if len(pathTemp)==0:pathFlag=0
+                    saveResult(pathFlag, classRoomIndex, count, roomNumSelect)
+
+        if roomNumSelect is classRoomNumZhuJian:
+            jsontext['data'].append( {'zhuJian': {'am12':am12, 'am34':am34, 'pm12':pm12, 'pm34':pm34}} )
+        elif roomNumSelect is classRoomNumZhong:
+            jsontext['data'].append( {'zhongLou': {'am12':am12, 'am34':am34, 'pm12':pm12, 'pm34':pm34}} )
+        elif roomNumSelect is classRoomNumXi:
+            jsontext['data'].append( {'XiPei': {'am12':am12, 'am34':am34, 'pm12':pm12, 'pm34':pm34}} )
+        
+        am12, am34, am34, pm34 = list(), list(), list(), list()
+
+    roomList = [classRoomNumZhuJian, classRoomNumZhong, classRoomNumXi]
+    for roomNumSelect in roomList:
+        getResponse(roomNumSelect)
+        
+    # print('am12 : {}'.format(am12))
+    # print('am34 : {}'.format(am34))
+    # print('pm12 : {}'.format(pm12))
+    # print('pm34 : {}'.format(pm34))
 
 
+init()#启动
+jsondata = json.dumps(jsontext,indent=4,separators=(',', ': '))
+
+f = open('classRoomData.json','w')
+f.write(jsondata)
+f.close()
 
 #path更新于2020/09/09
 #周一到周五上午 1、2节课的path如下：
