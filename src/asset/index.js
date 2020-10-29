@@ -154,7 +154,7 @@ var app = new Vue({
         let newDate = new Date();
         let getDay = newDate.getDay();  
         if (getDay<=4) {
-            getDay += 1;//getDay()方法返回值为0-6
+            //getDay()方法返回值为0-6
             this.activeKey = getDay.toString();
         }
         
